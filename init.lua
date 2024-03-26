@@ -9,7 +9,7 @@ minetest.register_node("redstone_clock:redstone_clock_block", {
     paramtype = "light",
     paramtype2 = "facedir",
     tiles = {
-        "default_stone^redstone_clock_redstone_clock_block.png"
+        "default_stone.png^redstone_clock_redstone_clock_block.png"
     },
     stack_max = 64,
     groups = {cracky = 3},
