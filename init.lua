@@ -3,13 +3,13 @@ local S = minetest.get_translator(minetest.get_current_modname())
 -- variable global pour choisir le temp d'un tick
 local tick = 1
 -- Code pour créer un bloc avec une texture (image imageface.png)
-minetest.register_node("redstone_clock:redstone_clock_block", {
+minetest.register_node("mcl2_clock:redstone_clock_block", {
     description = S("Horloge Redstone"),
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
     tiles = {
-        "default_stone.png^redstone_clock_redstone_clock_block.png"
+        "default_stone.png^mcl2_clock_redstone_clock_block.png"
     },
     stack_max = 64,
     groups = {cracky = 3},
@@ -94,7 +94,7 @@ end)
 
 minetest.register_craft({
 	type = "shaped",
-	output = "redstone_clock:redstone_clock_block 6",
+	output = "mcl2_clock:redstone_clock_block 6",
 	recipe = {
 		{"mcl_core:stone", "mcl_core:stone", "mcl_core:stone"},
 		{"mesecons_delayer:delayer_off_1", "mesecons_torch:redstoneblock", "mesecons_delayer:delayer_off_1"},
@@ -105,7 +105,7 @@ minetest.register_craft({
 
 
 --ajout un item pour desactiver le timer et reactivé le timer
-minetest.register_craftitem("redstone_clock:redstone_clock_item", {
+minetest.register_craftitem("mcl2_clock:redstone_clock_item", {
 	description = S("Horloge Redstone"),
 	inventory_image = "mcl2_clocks_item.png",
 	stack_max = 1,
@@ -133,7 +133,7 @@ minetest.register_craftitem("redstone_clock:redstone_clock_item", {
 })
 
 minetest.register_craft({
-	output = "redstone_clock:redstone_clock_item 1",
+	output = "mcl2_clock:redstone_clock_item 1",
 	recipe = {
 		{"mesecons:redstone", "mesecons:redstone", "mesecons:redstone"},
 		{"mesecons:redstone", "mcl_core:gold_ingot", "mesecons:redstone"},
