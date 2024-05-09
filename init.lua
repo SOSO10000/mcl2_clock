@@ -3,13 +3,13 @@ local S = minetest.get_translator(minetest.get_current_modname())
 -- variable global pour choisir le temp d'un tick
 local tick = 1
 -- Code pour créer un bloc avec une texture (image imageface.png)
-minetest.register_node("mcl2_clock:redstone_clock_block", {
+minetest.register_node("mcl2_clocks:redstone_clock_block", {
     description = S("Horloge Redstone"),
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
     tiles = {
-        "default_stone.png^mcl2_clock_redstone_clock_block.png"
+        "default_stone.png^mcl2_clocks_redstone_clock_block.png"
     },
     stack_max = 64,
     groups = {cracky = 3},
@@ -29,7 +29,7 @@ minetest.register_node("mcl2_clock:redstone_clock_block", {
 		local meta = minetest.get_meta(pos)
 		local number = meta:get_int("number")
 		--ouvrir le formulaire et ajoute les cordonner du bloc dans le formulaire
-		minetest.show_formspec(player:get_player_name(), "redstone_clock:form",
+		minetest.show_formspec(player:get_player_name(), "redstone_clocks:form",
 			"size[6,3.476]" ..
 			"field[0.375,1.25;5.25,0.8;number;" .. minetest.formspec_escape(S("Nombre :")) .. ";" .. number .. "]" ..
 			--cordonner du bloc
@@ -81,7 +81,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		--recuperer la position du bloc qui est dans le formulaire
 		local pos = minetest.string_to_pos(fields.pos)
 		local node = minetest.get_node(pos)
-		if node.name == "redstone_clock:redstone_clock_block" then
+		if node.name == "redstone_clocks:redstone_clock_block" then
 			local meta = minetest.get_meta(pos)
 			local number = tonumber(fields.number)
 			if number then
@@ -94,7 +94,7 @@ end)
 
 minetest.register_craft({
 	type = "shaped",
-	output = "mcl2_clock:redstone_clock_block 6",
+	output = "mcl2_clocks:redstone_clock_block 6",
 	recipe = {
 		{"mcl_core:stone", "mcl_core:stone", "mcl_core:stone"},
 		{"mesecons_delayer:delayer_off_1", "mesecons_torch:redstoneblock", "mesecons_delayer:delayer_off_1"},
@@ -105,14 +105,14 @@ minetest.register_craft({
 
 
 --ajout un item pour desactiver le timer et reactivé le timer
-minetest.register_craftitem("mcl2_clock:redstone_clock_item", {
+minetest.register_craftitem("mcl2_clocks:redstone_clock_item", {
 	description = S("Horloge Redstone"),
 	inventory_image = "mcl2_clocks_item.png",
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.under
 		local node = minetest.get_node(pos)
-		if node.name == "redstone_clock:redstone_clock_block" then
+		if node.name == "redstone_clocks:redstone_clock_block" then
 			local meta = minetest.get_meta(pos)
 			local number = meta:get_int("number")
 			--savoir si le timer est activer ou desactiver minetest.get_node_timer(pos):start(0.01)
@@ -133,7 +133,7 @@ minetest.register_craftitem("mcl2_clock:redstone_clock_item", {
 })
 
 minetest.register_craft({
-	output = "mcl2_clock:redstone_clock_item 1",
+	output = "mcl2_clocks:redstone_clock_item 1",
 	recipe = {
 		{"mesecons:redstone", "mesecons:redstone", "mesecons:redstone"},
 		{"mesecons:redstone", "mcl_core:gold_ingot", "mesecons:redstone"},
