@@ -74,7 +74,7 @@ minetest.register_node("mcl2_clocks:redstone_clock_block", {
 
 --ajout du formulaire apelle la fonction pour modifier le meta du bloc
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname == "redstone_clock:form" then
+	if formname == "redstone_clocks:form" then
 		if fields.quit then
 			return
 		end
