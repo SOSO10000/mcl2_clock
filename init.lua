@@ -29,7 +29,7 @@ minetest.register_node("mcl2_clocks:redstone_clock_block", {
 		local meta = minetest.get_meta(pos)
 		local number = meta:get_int("number")
 		--ouvrir le formulaire et ajoute les cordonner du bloc dans le formulaire
-		minetest.show_formspec(player:get_player_name(), "redstone_clocks:form",
+		minetest.show_formspec(player:get_player_name(), "redstone_clock:form",
 			"size[6,3.476]" ..
 			"field[0.375,1.25;5.25,0.8;number;" .. minetest.formspec_escape(S("Nombre :")) .. ";" .. number .. "]" ..
 			--cordonner du bloc
@@ -74,14 +74,14 @@ minetest.register_node("mcl2_clocks:redstone_clock_block", {
 
 --ajout du formulaire apelle la fonction pour modifier le meta du bloc
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname == "redstone_clocks:form" then
+	if formname == "redstone_clock:form" then
 		if fields.quit then
 			return
 		end
 		--recuperer la position du bloc qui est dans le formulaire
 		local pos = minetest.string_to_pos(fields.pos)
 		local node = minetest.get_node(pos)
-		if node.name == "redstone_clocks:redstone_clock_block" then
+		if node.name == "mcl2_clocks:redstone_clock_block" then
 			local meta = minetest.get_meta(pos)
 			local number = tonumber(fields.number)
 			if number then
@@ -112,7 +112,7 @@ minetest.register_craftitem("mcl2_clocks:redstone_clock_item", {
 	on_use = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.under
 		local node = minetest.get_node(pos)
-		if node.name == "redstone_clocks:redstone_clock_block" then
+		if node.name == "mcl2_clocks:redstone_clock_block" then
 			local meta = minetest.get_meta(pos)
 			local number = meta:get_int("number")
 			--savoir si le timer est activer ou desactiver minetest.get_node_timer(pos):start(0.01)
