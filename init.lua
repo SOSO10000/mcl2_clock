@@ -4,7 +4,7 @@ local S = minetest.get_translator(minetest.get_current_modname())
 local tick = 1
 -- Code pour créer un bloc avec une texture (image imageface.png)
 minetest.register_node("mcl2_clocks:redstone_clock_block", {
-    description = S("Horloge Redstone"),
+    description = S("Horloge Redstone Block"),
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
