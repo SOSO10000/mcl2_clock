@@ -4,7 +4,8 @@ local S = minetest.get_translator(minetest.get_current_modname())
 local tick = 1
 -- Code pour créer un bloc avec une texture (image imageface.png)
 minetest.register_node("mcl2_clocks:redstone_clock_block", {
-    description = S("repeat timer for redstone"),
+    description = S("redstone clock"),
+	_tt_help = S("repeat timer for redstone")
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -106,7 +107,8 @@ minetest.register_craft({
 
 --ajout un item pour desactiver le timer et reactivé le timer
 minetest.register_craftitem("mcl2_clocks:redstone_clock_item", {
-	description = S("Horloge Redstone"),
+	description = S("activator "),
+	_tt_help = S("activate/deactivate redstone clocks")
 	inventory_image = "mcl2_clocks_item.png",
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
@@ -140,3 +142,4 @@ minetest.register_craft({
 		{"mesecons:redstone", "mesecons:redstone", "mesecons:redstone"}
 	}
 })
+
