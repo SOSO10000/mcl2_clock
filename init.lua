@@ -5,7 +5,7 @@ local tick = 1
 -- Code pour créer un bloc avec une texture (image imageface.png)
 minetest.register_node("mcl2_clocks:redstone_clock_block", {
     description = S("redstone clock"),
-	_tt_help = S("repeat timer for redstone")
+	_tt_help = S("repeat timer for redstone"),
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -32,7 +32,7 @@ minetest.register_node("mcl2_clocks:redstone_clock_block", {
 		--ouvrir le formulaire et ajoute les cordonner du bloc dans le formulaire
 		minetest.show_formspec(player:get_player_name(), "redstone_clock:form",
 			"size[6,3.476]" ..
-			"field[0.375,1.25;5.25,0.8;number;" .. minetest.formspec_escape(S("Nombre :")) .. ";" .. number .. "]" ..
+			"field[0.375,1.25;5.25,0.8;number;" .. minetest.formspec_escape(S("countdown time:")) .. ";" .. number .. "]" ..
 			--cordonner du bloc
 			"field[0.375,20.25;5.25,0.8;pos;" .. minetest.formspec_escape(S("Position :")) .. ";" .. minetest.pos_to_string(pos) .. "]" ..
 			"button[1.5,2.3;3,0.8;submit;" .. minetest.formspec_escape(S("Soumettre")) .. "]"
@@ -87,7 +87,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local number = tonumber(fields.number)
 			if number then
 				meta:set_int("number", number)
-				minetest.chat_send_player(player:get_player_name(), "changements effectués pour le nombre : " .. number)
+				minetest.chat_send_player(player:get_player_name(),S ("changes made to the number :  " ).. number)
 			end
 		end
 	end
@@ -107,8 +107,8 @@ minetest.register_craft({
 
 --ajout un item pour desactiver le timer et reactivé le timer
 minetest.register_craftitem("mcl2_clocks:redstone_clock_item", {
-	description = S("activator "),
-	_tt_help = S("activate/deactivate redstone clocks")
+	description = S("activator"),
+	_tt_help = S("activates/deactivates redstone clocks"),
 	inventory_image = "mcl2_clocks_item.png",
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
@@ -142,4 +142,3 @@ minetest.register_craft({
 		{"mesecons:redstone", "mesecons:redstone", "mesecons:redstone"}
 	}
 })
-
