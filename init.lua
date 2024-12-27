@@ -25,17 +25,18 @@ minetest.register_node("mcl2_clocks:redstone_clock_block", {
 		meta:set_int("bloucle", "on")
 		meta:set_string("redstone_state", "off")
 	end,
-	on_rightclick = function(pos, node, player, itemstack, pointed_thing) -- Fonction pour ouvrir le formulaire lors d'un clic droit et ajout la valeur actuelle du bloc
-		--recuperer la valeur actuelle du bloc
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+		-- Récupérer la valeur actuelle du bloc
 		local meta = minetest.get_meta(pos)
 		local number = meta:get_int("number")
-		--ouvrir le formulaire et ajoute les cordonner du bloc dans le formulaire
+	
+		-- Ouvrir le formulaire et ajouter les coordonnées du bloc
 		minetest.show_formspec(player:get_player_name(), "redstone_clock:form",
 			"size[6,3.476]" ..
 			"field[0.375,1.25;5.25,0.8;number;" .. minetest.formspec_escape(S("countdown time:")) .. ";" .. number .. "]" ..
-			--cordonner du bloc
 			"field[0.375,20.25;5.25,0.8;pos;" .. minetest.formspec_escape(S("Position :")) .. ";" .. minetest.pos_to_string(pos) .. "]" ..
-			"button[1.5,2.3;3,0.8;submit;" .. minetest.formspec_escape(S("Soumettre")) .. "]"
+			"button[0.75,2.3;2,0.8;submit;" .. minetest.formspec_escape(S("Soumettre")) .. "]" ..
+			"button_exit[3.25,2.3;2,0.8;destroy;" .. minetest.formspec_escape(S("Casser le bloc")) .. "]"
 		)
 	end,
 	--ajoute une clock pour en fonction du nombre du bloc et regarde la valeur du bloc change et envoie un message dans le chat 1 unité de temps de temp dans le bloc = 1 tick de temp
@@ -142,3 +143,32 @@ minetest.register_craft({
 		{"mesecons:redstone", "mesecons:redstone", "mesecons:redstone"}
 	}
 })
+
+
+-- Fonction pour gérer les réponses au formulaire
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+	if formname ~= "redstone_clock:form" then return end
+
+	-- Vérifier si le joueur a cliqué sur "Casser le bloc"
+	if fields.destroy then
+		local pos = minetest.string_to_pos(fields.pos)
+		if pos then
+			minetest.set_node(pos, {name = "air"}) -- Détruire le bloc
+			minetest.chat_send_player(player:get_player_name(), S("Bloc détruit à : ") .. minetest.pos_to_string(pos))
+			--drop l'item
+			minetest.add_item(pos, "mcl2_clocks:redstone_clock_block")
+		end
+		return true
+	end
+
+	-- Vérifier si le joueur a soumis le formulaire
+	if fields.submit then
+		local pos = minetest.string_to_pos(fields.pos)
+		if pos then
+			local meta = minetest.get_meta(pos)
+			meta:set_int("number", tonumber(fields.number) or 0)
+			minetest.chat_send_player(player:get_player_name(), S("Temps de compte à rebours mis à jour à : ") .. fields.number)
+		end
+		return true
+	end
+end)
